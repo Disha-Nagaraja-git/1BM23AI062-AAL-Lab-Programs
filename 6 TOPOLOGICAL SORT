@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100
+
+typedef struct Node {
+    int vertex;
+    struct Node* next;
+} Node;
+
+typedef struct Graph {
+    int numVertices;
+    Node* adjLists[MAX_VERTICES];
+    int visited[MAX_VERTICES];
+} Graph;
+
+Node* createNode(int v) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->vertex = v;
+    newNode->next = NULL;
+    return newNode;
+}
+
+Graph* createGraph(int vertices) {
+    Graph* graph = (Graph*)malloc(sizeof(Graph));
+    graph->numVertices = vertices;
+    for (int i = 0; i < vertices; i++) {
+        graph->adjLists[i] = NULL;
+        graph->visited[i] = 0;
+    }
+    return graph;
+}
+
+void addEdge(Graph* graph, int src, int dest) {
+    Node* newNode = createNode(dest);
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
+}
+
+void topologicalSortUtil(Graph* graph, int v, int stack[], int* stackIndex) {
+
+    graph->visited[v] = 1;
+
+    Node* temp = graph->adjLists[v];
+    while (temp != NULL) {
+        int connectedVertex = temp->vertex;
+        if (!graph->visited[connectedVertex]) {
+            topologicalSortUtil(graph, connectedVertex, stack, stackIndex);
+        }
+        temp = temp->next;
+    }
+
+    stack[(*stackIndex)] = v;
+    (*stackIndex)++;
+}
+
+void topologicalSort(Graph* graph) {
+    int stack[MAX_VERTICES];
+    int stackIndex = 0;
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        graph->visited[i] = 0;
+    }
+
+
+    for (int i = 0; i < graph->numVertices; i++) {
+        if (graph->visited[i] == 0) {
+            topologicalSortUtil(graph, i, stack, &stackIndex);
+        }
+    }
+
+    printf("Topological Sort: ");
+    for (int i = stackIndex - 1; i >= 0; i--) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    Graph* graph = createGraph(6);
+    addEdge(graph, 5, 2);
+    addEdge(graph, 5, 0);
+    addEdge(graph, 4, 0);
+    addEdge(graph, 4, 1);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 1);
+
+    topologicalSort(graph);
+
+    return 0;
+}
