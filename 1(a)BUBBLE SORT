@@ -46,3 +46,15 @@ int main() {
 
     return 0;
 }
+
+
+
+OUTPUT:
+Enter the number of elements: 5
+Enter 5 elements:
+2 5 7 8 3
+Original array:
+2 5 7 8 3 
+Sorted array in ascending order:
+2 3 5 7 8 
+
