@@ -33,3 +33,12 @@ int main() {
 
     return 0;
 }
+
+
+
+OUTPUT:
+Enter the text: hey disha, hope you are doing good
+Enter the pattern to search: d
+Pattern found at index 4
+Pattern found at index 24
+Pattern found at index 33
