@@ -48,3 +48,27 @@ int main() {
 
     return 0;
 }
+
+
+OUTPUT:
+Enter the number of elements: 5
+Enter 5 elements:
+Element 1: 56
+Element 2: 55
+Element 3: 32
+Element 4: 88
+Element 5: 98
+
+Original array:
+Element 1: 56
+Element 2: 55
+Element 3: 32
+Element 4: 88
+Element 5: 98
+
+Sorted array:
+Element 1: 32
+Element 2: 55
+Element 3: 56
+Element 4: 88
+Element 5: 98
